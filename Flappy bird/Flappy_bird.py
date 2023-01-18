@@ -13,6 +13,8 @@ class Bird:
         linkIcon = pygame.image.load('./Data/Bird.png').convert()
         pygame.display.set_icon(linkIcon)
         self.gamerunning = True
+        self.gravity = 2
+        self.Move = 0
 
         self.Floor = pygame.image.load('./Data/Floor.png').convert()
 
@@ -22,6 +24,11 @@ class Bird:
         
         self.Clock = pygame.time.Clock()
         self.Floor_x_Pos = 0
+
+    def Bird_Move(self, Bird_rect):
+        Bird_rect += self.Move
+        self.screen.blit(self.Bird, (self.Bird_x_Pos, self.Bird_rect))
+
 
     def Draw_Floor(self):
         self.screen.blit(self.Floor,(self.Floor_x_Pos,450))
@@ -36,10 +43,15 @@ class Bird:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        print(1)
+                        self.gravity = 0
+                        self.gravity -= 10
 
             self.screen.blit(self.background,(0,0))
-            self.screen.blit(self.Bird, (self.Bird_x_Pos, self.Bird_y_Pos))
+
+            # Ve Bird
+            self.Move += self.gravity
+            bird_rect = bird.get_rect(center = (100,300))
+            self.Bird_Move(bird_rect)
 
             # Ve ground
             self.Floor_x_Pos -= 2
