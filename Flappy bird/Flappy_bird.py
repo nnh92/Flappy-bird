@@ -1,3 +1,4 @@
+from tkinter import CENTER
 import pygame
 
 class Bird:
@@ -13,7 +14,7 @@ class Bird:
         linkIcon = pygame.image.load('./Data/Bird.png').convert()
         pygame.display.set_icon(linkIcon)
         self.gamerunning = True
-        self.gravity = 2
+        self.gravity = 0.25
         self.Move = 0
 
         self.Floor = pygame.image.load('./Data/Floor.png').convert()
@@ -25,9 +26,10 @@ class Bird:
         self.Clock = pygame.time.Clock()
         self.Floor_x_Pos = 0
 
-    def Bird_Move(self, Bird_rect):
-        Bird_rect += self.Move
-        self.screen.blit(self.Bird, (self.Bird_x_Pos, self.Bird_rect))
+    def Bird_Move(self):
+        self.Move += 0.5 * self.gravity
+        self.bird_rect.centery += self.Move
+        self.screen.blit(self.Bird, self.bird_rect)
 
 
     def Draw_Floor(self):
@@ -35,7 +37,9 @@ class Bird:
         self.screen.blit(self.Floor,(self.Floor_x_Pos+self.xScreen,450))
 
     def run(self):
+        self.bird_rect = self.Bird.get_rect(center = (50,self.yScreen/2))
         while self.gamerunning:
+            
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
@@ -43,15 +47,12 @@ class Bird:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.gravity = 0
-                        self.gravity -= 10
+                        self.Move = 0
+                        self.Move -= 6
 
             self.screen.blit(self.background,(0,0))
 
-            # Ve Bird
-            self.Move += self.gravity
-            bird_rect = bird.get_rect(center = (100,300))
-            self.Bird_Move(bird_rect)
+            self.Bird_Move()
 
             # Ve ground
             self.Floor_x_Pos -= 2
@@ -59,9 +60,9 @@ class Bird:
             if self.Floor_x_Pos <= -self.xScreen:
                 self.Floor_x_Pos = 0
             
-            pygame.display.flip()
+            #pygame.display.flip()
             pygame.display.update()
-            self.Clock.tick(60)
+            self.Clock.tick(120)
 
         pygame.quit()
 
