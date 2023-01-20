@@ -27,9 +27,11 @@ class Bird:
         self.Score = 0
         #Thong so Floor
         self.Floor = pygame.image.load('./Data/Floor.png').convert()
+        self.Floor_Level = 500
         #Thong so bird
+        self.Bird_Size = 50
         self.BirdImg = pygame.image.load('./Data/yellowbird-midflap.png').convert()
-        self.Bird = pygame.transform.scale(self.BirdImg, (50,50))
+        self.Bird = pygame.transform.scale(self.BirdImg, (self.Bird_Size,self.Bird_Size))
         self.Bird_x_Pos, self.Bird_y_Pos = 40, self.yScreen/2
         #Thong so Column
         self.Col_Img_Bot = pygame.image.load('./Data/tube2.png').convert()
@@ -42,11 +44,16 @@ class Bird:
         self.screen.blit(self.Bird, self.bird_rect)
 
     def Draw_Floor(self):
-        self.screen.blit(self.Floor,(self.Floor_x_Pos,500))
-        self.screen.blit(self.Floor,(self.Floor_x_Pos+self.xScreen,500))
+        self.screen.blit(self.Floor,(self.Floor_x_Pos,self.Floor_Level))
+        self.screen.blit(self.Floor,(self.Floor_x_Pos+self.xScreen,self.Floor_Level))
 
+    def isGameOver(self):
+        font = pygame.font.SysFont('consolas', 60)
+        headingSuface = font.render('GAMEOVER', True, (255,0,0))
+        headingSize = headingSuface.get_size()
+        self.background.blit(headingSuface, (100,200))
     def run(self):
-        self.bird_rect = self.Bird.get_rect(center = (50,self.yScreen/2))
+        self.bird_rect = self.Bird.get_rect(center = (self.Bird_Size,self.yScreen/2))
         while self.gamerunning:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -56,7 +63,9 @@ class Bird:
                     if event.key == pygame.K_SPACE:
                         self.Move = 0
                         self.Move -= 2.5
-
+            if self.bird_rect.centery >= self.Floor_Level - self.Bird_Size/2 or self.bird_rect.centery < self.Bird_Size/2:
+                self.isGameOver()
+                
             self.screen.blit(self.background,(0,0))
             self.Bird_Move()
             #Ve Column
