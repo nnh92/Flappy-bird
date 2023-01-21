@@ -48,9 +48,10 @@ class Bird:
         self.screen.blit(self.Floor,(self.Floor_x_Pos+self.xScreen,self.Floor_Level))
 
     def isGameOver(self):
-        font = pygame.font.SysFont('consolas', 60)
+        font = pygame.font.SysFont('consolas', 30)
         headingSuface = font.render('GAMEOVER', True, (255,0,0))
         headingSize = headingSuface.get_size()
+
         self.background.blit(headingSuface, (100,200))
     def run(self):
         self.bird_rect = self.Bird.get_rect(center = (self.Bird_Size,self.yScreen/2))
@@ -81,6 +82,11 @@ class Bird:
             self.Col_Pos_T = (self.xScreen + self.Col_x_pos, self.yScreen - self.Col_B_Height - self.distance - self.Col_Height)
             self.screen.blit(self.Col_Img_Bot, self.Col_Pos_B)
             self.screen.blit(self.Col_Img_Top, self.Col_Pos_T)
+
+            if self.bird_rect.centery + self.Bird_Size/2 > self.Col_Pos_B[1] and self.Bird_x_Pos + self.Bird_Size/2 >= self.Col_Pos_B[0]:
+                self.isGameOver()
+            if self.bird_rect.centery - self.Bird_Size/2 < self.Col_Pos_T[1] + self.Col_Height and self.Bird_x_Pos + self.Bird_Size/2 >= self.Col_Pos_T[0]:
+                self.isGameOver()
             # Ve ground
             self.Floor_x_Pos -= 2
             self.Draw_Floor()
