@@ -7,11 +7,14 @@ class Bird:
         pygame.init()
         self.xScreen, self.yScreen = 336,550
         linkBackground = './Data/background_night.png'
+        linkBackgroundEnd = './Data/Background2.png'
         self.screen = pygame.display.set_mode((self.xScreen, self.yScreen))
 
         pygame.display.set_caption('Flappy bird!')
         self.background = pygame.image.load(linkBackground).convert()
         self.background = pygame.transform.scale(self.background,(self.xScreen, self.yScreen))
+        self.backgroundEnd = pygame.image.load(linkBackgroundEnd).convert()
+        self.backgroundEnd = pygame.transform.scale(self.backgroundEnd,(self.xScreen, self.yScreen))
         linkIcon = pygame.image.load('./Data/Bird.png').convert()
         pygame.display.set_icon(linkIcon)
         #Thong so game
@@ -58,7 +61,7 @@ class Bird:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            self.screen.blit(self.background,(0,0))
+            self.screen.blit(self.backgroundEnd,(0,0))
             self.screen.blit(headingSuface, (100,200))
             self.screen.blit(headingScore, (100,250))
             pygame.display.update()
