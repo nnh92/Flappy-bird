@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 
 class Bird:
     def __init__(self):
@@ -23,14 +24,14 @@ class Bird:
         self.Col_B_Height = 100
         self.distance = 150
         self.Col_Height = 500
-        self.FPS = 60
+        self.FPS = 180
         self.Score = 0
         #Thong so Floor
         self.Floor = pygame.image.load('./Data/Floor.png').convert()
         self.Floor_Level = 500
         #Thong so bird
         self.Bird_Size = 50
-        self.BirdImg = pygame.image.load('./Data/yellowbird-midflap.png').convert()
+        self.BirdImg = pygame.image.load('./Data/KL.png').convert()
         self.Bird = pygame.transform.scale(self.BirdImg, (self.Bird_Size,self.Bird_Size))
         self.Bird_x_Pos, self.Bird_y_Pos = 40, self.yScreen/2
         #Thong so Column
@@ -50,9 +51,15 @@ class Bird:
     def isGameOver(self):
         font = pygame.font.SysFont('consolas', 30)
         headingSuface = font.render('GAMEOVER', True, (255,0,0))
-        headingSize = headingSuface.get_size()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            self.screen.blit(self.background,(0,0))
+            self.screen.blit(headingSuface, (100,200))
+            pygame.display.update()
 
-        self.background.blit(headingSuface, (100,200))
     def run(self):
         self.bird_rect = self.Bird.get_rect(center = (self.Bird_Size,self.yScreen/2))
         while self.gamerunning:
