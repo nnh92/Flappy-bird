@@ -6,8 +6,8 @@ class Bird:
     def __init__(self):
         pygame.init()
         self.xScreen, self.yScreen = 336,550
-        linkBackground = './Data/background_night.png'
-        linkBackgroundEnd = './Data/Background2.png'
+        linkBackground = './Flappy bird/Flappy bird/Data/background_night.png'
+        linkBackgroundEnd = './Flappy bird/Flappy bird/Data/Background2.png'
         self.screen = pygame.display.set_mode((self.xScreen, self.yScreen))
 
         pygame.display.set_caption('Flappy bird!')
@@ -15,7 +15,7 @@ class Bird:
         self.background = pygame.transform.scale(self.background,(self.xScreen, self.yScreen))
         self.backgroundEnd = pygame.image.load(linkBackgroundEnd).convert()
         self.backgroundEnd = pygame.transform.scale(self.backgroundEnd,(self.xScreen, self.yScreen))
-        linkIcon = pygame.image.load('./Data/Bird.png').convert()
+        linkIcon = pygame.image.load('./Flappy bird/Flappy bird/Data/Bird.png').convert()
         pygame.display.set_icon(linkIcon)
         #Thong so game
         self.gamerunning = True
@@ -30,17 +30,17 @@ class Bird:
         self.FPS = 60
         self.score = 0
         #Thong so Floor
-        self.Floor = pygame.image.load('./Data/Floor.png').convert()
+        self.Floor = pygame.image.load('./Flappy bird/Flappy bird/Data/Floor.png').convert()
         self.Floor_Level = 500
         #Thong so bird
         self.Bird_Size = 50
-        self.BirdImg = pygame.image.load('./Data/KL.png').convert()
+        self.BirdImg = pygame.image.load('./Flappy bird/Flappy bird/Data/KL.png').convert()
         self.Bird = pygame.transform.scale(self.BirdImg, (self.Bird_Size,self.Bird_Size))
         self.Bird_x_Pos, self.Bird_y_Pos = 40, self.yScreen/2
         #Thong so Column
-        self.Col_Img_Bot = pygame.image.load('./Data/tube2.png').convert()
+        self.Col_Img_Bot = pygame.image.load('./Flappy bird/Flappy bird/Data/tube2.png').convert()
         self.Col_Img_Bot = pygame.transform.scale(self.Col_Img_Bot, (45,self.Col_Height))
-        self.Col_Img_Top = pygame.image.load('./Data/tube1.png').convert()
+        self.Col_Img_Top = pygame.image.load('./Flappy bird/Flappy bird/Data/tube1.png').convert()
         self.Col_Img_Top = pygame.transform.scale(self.Col_Img_Top, (45,self.Col_Height))
     def Bird_Move(self):
         self.Move += 0.5 * self.gravity
